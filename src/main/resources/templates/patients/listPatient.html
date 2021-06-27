@@ -1,0 +1,78 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.sprinfgramework.org/schema/security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	  <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/> 
+<title>Patient list</title>
+</head>
+<body>
+<div class="p-5 text-center bg-light">
+<h3 class="mb-3">Patient list</h3>
+	<hr>
+	
+			<!-- Add logout button -->
+			<form  th:action="@{/showMyLoginPage}" 
+						method ="GET" class="col-lg-1 logout-button">
+			<input type="submit" value="Logout">
+			</form>
+		
+	<p>
+		
+	 		<!--add a button 'add Patient'-->
+			<a sec:authorize="hasAuthority('ROLE_DOCTOR')" th:href="@{/vaccinations_patients/showForm}" 
+				class="btn btn-outline-dark">Add Patient</a>
+			
+		
+		<!--get vaccinated patients-->
+		<a th:href="@{/vaccinations_patients/findIsVaccinatedTrue}" 
+			  class="btn btn-outline-dark" 
+			 >Show only vaccinated patients</a>
+			 
+		<!--get unvaccinated patients-->
+		<a th:href="@{/vaccinations_patients/findIsVaccinatedFalse}" 
+			  class="btn btn-outline-dark" 
+			 >Show unvaccinated patients</a>
+			 
+		<!--show all patients-->
+		<a th:href="@{/vaccinations_patients/home}" 
+			  class="btn btn-outline-dark" 
+			 >Show all patients</a>
+	</p>
+
+	<br>
+			<!--  find patients by first name or last name -->
+		<form class="example" th:action="@{/vaccinations_patients/findPatientByFirstNameOrLastName}" >
+			  <input type="text" placeholder="Search.." th:name="theSearchName">
+			  <button type="submit"><i class="fa fa-search"></i></button>
+		</form>
+		
+	<br>
+	<table class="table table-dark">
+		<thead>
+			<tr>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Age</th>
+				<th scope="col">Is Vaccinated</th> 
+			</tr>
+			</thead>
+			
+				<tbody>
+
+			<!-- loop over and print our patients -->
+			<tr th:each="tempPatients: ${patients}">
+				<td th:text="${tempPatients.firstName}"/>
+				<td th:text="${tempPatients.lastName}"/>
+				<td th:text="${tempPatients.age}"/>
+				<td th:text="${tempPatients.isVaccinated}"/> 
+			</tr>
+		</tbody>
+	</table>
+	</div>
+</body>
+</html>

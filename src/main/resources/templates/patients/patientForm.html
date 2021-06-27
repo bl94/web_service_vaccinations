@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+<title>Patient-Form</title>
+</head>
+<body>
+<div class="container">
+				
+		<p class="h4 mb-4">Save Patient</p> 
+		<hr>
+		
+		<form action="#" th:action="@{/vaccinations_patients/addPatient}" 
+			  th:object="${patient}" method="POST">
+			  
+		 <input type="hidden" th:field="*{id}"/>
+			  
+		<div class="form-group">
+			<label>First Name</label>
+			<input type="text" th:field="*{firstName}" 
+					class="form-control mb-2 col-4" >
+		</div>
+		
+		<div class="form-group">
+			<label>Last Name</label>
+			<input type="text" th:field="*{lastName}" 
+				class="form-control mb-2 col-4" >
+		</div>
+		<div class="form-group">
+			<label>Age</label>
+			<input type="number" th:field="*{age}" 
+				class="form-control mb-2 col-4" min="1" max="200">
+		</div>
+		<div class="form-group"> 
+			<label>Is patient vaccinated ?</label> 
+			<select class="form-control" th:field="*{isVaccinated}">
+			    <option th:value="1" >true</option>
+			    <option th:value="0" >false</option>
+			</select>				
+		</div>	 
+
+		<br>
+		<button type="submit" class="btn btn-info col-2">Save</button>
+		
+		</form>
+		
+		<hr>
+		 <a th:href="@{/vaccinations_patients/home}">Back to Patient List</a>
+		
+		</div>
+</body>
+</html>
